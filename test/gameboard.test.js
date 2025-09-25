@@ -26,12 +26,12 @@ describe("Gameboard", () => {
 
     const result = board.receiveAttack([1, 1]);
     expect(result).toBe("missed");
-    expect(board.missedAttacks).toEqual([1, 1]);
+    expect(board.missedAttacks).toEqual([[1, 1]]);
   });
 
   test("reports all ships sunk", () => {
     const board = new Gameboard();
-    const ship = new Ship(2);
+    const ship = new Ship(1);
     board.placeShip(ship, [0, 0]);
 
     board.receiveAttack([0, 0]);
