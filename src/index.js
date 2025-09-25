@@ -1,5 +1,5 @@
-import Ship from "./ship";
-import Player from "./player";
+import Ship from "./ship.js";
+import Player from "./player.js";
 
 const player1 = new Player("Sally");
 const player2 = new Player("Robot");
