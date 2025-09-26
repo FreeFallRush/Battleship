@@ -1,26 +1,49 @@
 import Player from "../src/player";
 import Ship from "../src/ship";
+import Gameboard from "../src/gameboard";
 
 describe("Player", () => {
-  test("player attacks opponent's board", () => {
-    const player1 = new Player("Sam");
-    const player2 = new Player("Jill");
+  test("player attacks opponent's board and hits a ship", () => {
+    const player = new Player("Human");
+    const opponent = new Player("Computer");
+    const opponentBoard = new Gameboard();
     const ship = new Ship(1);
-    player2.board.placeShip(ship, [0, 0]);
+    opponentBoard.placeShip(ship, [0, 0]);
+    opponent.setBoard(opponentBoard);
 
-    const result = player1.attack(player2, [0, 0]);
+    const result = player.attack(opponent.board, [0, 0]);
     expect(result).toBe("hit");
     expect(ship.hits).toBe(1);
   });
 
-  test("records a miss when attack misses", () => {
-    const player1 = new Player("Sam");
-    const player2 = new Player("Jill");
+  test("player attacks opponent's board and misses", () => {
+    const player = new Player("Human");
+    const opponent = new Player("Computer");
+    const opponentBoard = new Gameboard();
     const ship = new Ship(1);
-    player2.board.placeShip(ship, [1, 1]);
+    opponentBoard.placeShip(ship, [1, 1]);
+    opponent.setBoard(opponentBoard);
 
-    const result = player1.attack(player2, [0, 0]);
+    const result = player.attack(opponent.board, [0, 0]);
     expect(result).toBe("missed");
-    expect(player2.board.missedAttacks).toEqual([[0, 0]]);
+    expect(opponent.board.missedAttacks).toEqual([[0, 0]]);
+  });
+
+  test("computer makes a random attack", () => {
+    const computer = new Player("Computer", true);
+    const board = new Gameboard();
+    computer.randomAttack(board);
+    expect(computer.attacks.length).toBe(1);
+  });
+
+  test("prevents attacking the same coordinate twice", () => {
+    const player = new Player("Human");
+    const opponentBoard = new Gameboard();
+    player.setBoard(opponentBoard);
+
+    player.attack(opponentBoard, [0, 0]);
+    expect(() => player.attack(opponentBoard, [0, 0])).toThrow(
+      "Coordinate already attacked"
+    );
   });
 });
