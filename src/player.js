@@ -1,9 +1,18 @@
+import Gameboard from "./gameboard";
+import createFleet from "./fleet";
+import placeFleet from "./setupFleet";
+
 export default class Player {
   constructor(name, isComputer = false) {
     this.name = name;
     this.isComputer = isComputer;
-    this.board = null;
+    this.board = new Gameboard();
     this.attacks = [];
+
+    if (isComputer) {
+      const fleet = createFleet();
+      placeFleet(this.board, fleet);
+    }
   }
 
   setBoard(board) {
