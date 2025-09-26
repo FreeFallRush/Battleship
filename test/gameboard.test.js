@@ -25,6 +25,27 @@ describe("Gameboard", () => {
     ]);
   });
 
+  test("throws error if ship goes out of coordinates", () => {
+    const board = new Gameboard();
+    const ship = new Ship(4);
+
+    expect(() => board.placeShip(ship, [0, 8], "horizontal")).toThrow(
+      "Ship placement is outside the coordinates"
+    );
+  });
+
+  test("throws error if ships overlap", () => {
+    const board = new Gameboard();
+    const ship1 = new Ship(3);
+    const ship2 = new Ship(2);
+
+    board.placeShip(ship1, [0, 0], "horizontal");
+
+    expect(() => board.placeShip(ship2, [0, 1], "vertical")).toThrow(
+      "Ship placement overlaps another ship"
+    );
+  });
+
   // test("register a hit on the ship", () => {
   //   const board = new Gameboard();
   //   const ship = new Ship(2);

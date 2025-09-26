@@ -16,6 +16,21 @@ export default class Gameboard {
         coords.push([x + i, y]);
       }
     }
+
+    if (coords.some(([row, col]) => row >= this.size || col >= this.size)) {
+      throw new Error("Ship placement is outside the coordinates");
+    }
+
+    if (
+      this.ships.some((s) =>
+        s.coords.some(([a, b]) =>
+          coords.some(([row, col]) => a === row && b === col)
+        )
+      )
+    ) {
+      throw new Error("Ship placement overlaps another ship");
+    }
+
     this.ships.push({ ship, coords, hits: [] });
   }
 
