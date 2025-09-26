@@ -1,5 +1,6 @@
 import Ship from "./ship.js";
 import Player from "./player.js";
+import "./game.js";
 
 const player1 = new Player("Sally");
 const player2 = new Player("Robot");
