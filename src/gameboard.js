@@ -34,20 +34,21 @@ export default class Gameboard {
     this.ships.push({ ship, coords, hits: [] });
   }
 
-  // receiveAttack(coord) {
-  //   for (let placed of this.ships) {
-  //     if (placed.coord[0] === coord[0] && placed.coord[1] === coord[1]) {
-  //       placed.ship.hit();
-  //       placed.hits.push(coord);
-  //       return "hit";
-  //     }
-  //   }
+  receiveAttack(coord) {
+    for (let placed of this.ships) {
+      for (let pos of placed.coords) {
+        if (pos[0] === coord[0] && pos[1] === coord[1]) {
+          placed.ship.hit();
+          placed.hits.push(coord);
+          return "hit";
+        }
+      }
+    }
+    this.missedAttacks.push(coord);
+    return "missed";
+  }
 
-  //   this.missedAttacks.push(coord);
-  //   return "missed";
-  // }
-
-  // allSunk() {
-  //   return this.ships.every((placed) => placed.ship.isSunk());
-  // }
+  allSunk() {
+    return this.ships.every((placed) => placed.ship.isSunk());
+  }
 }

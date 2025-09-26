@@ -46,32 +46,32 @@ describe("Gameboard", () => {
     );
   });
 
-  // test("register a hit on the ship", () => {
-  //   const board = new Gameboard();
-  //   const ship = new Ship(2);
-  //   board.placeShip(ship, [0, 0]);
+  test("registers a hit on the correct ship", () => {
+    const board = new Gameboard();
+    const ship = new Ship(2);
+    board.placeShip(ship, [0, 0], "horizontal");
 
-  //   const result = board.receiveAttack([0, 0]);
-  //   expect(result).toBe("hit");
-  //   expect(ship.hits).toBe(1);
-  // });
+    const result = board.receiveAttack([0, 1]);
+    expect(result).toBe("hit");
+    expect(ship.hits).toBe(1);
+  });
 
-  // test("records a missed attack", () => {
-  //   const board = new Gameboard();
-  //   const ship = new Ship(2);
-  //   board.placeShip(ship, [0, 0]);
+  test("records a missed attack", () => {
+    const board = new Gameboard();
+    const ship = new Ship(2);
+    board.placeShip(ship, [0, 0], "horizontal");
 
-  //   const result = board.receiveAttack([1, 1]);
-  //   expect(result).toBe("missed");
-  //   expect(board.missedAttacks).toEqual([[1, 1]]);
-  // });
+    const result = board.receiveAttack([5, 5]);
+    expect(result).toBe("missed");
+    expect(board.missedAttacks).toEqual([[5, 5]]);
+  });
 
-  // test("reports all ships sunk", () => {
-  //   const board = new Gameboard();
-  //   const ship = new Ship(1);
-  //   board.placeShip(ship, [0, 0]);
+  test("reports all ships sunk", () => {
+    const board = new Gameboard();
+    const ship = new Ship(1);
+    board.placeShip(ship, [0, 0]);
 
-  //   board.receiveAttack([0, 0]);
-  //   expect(board.allSunk()).toBe(true);
-  // });
+    board.receiveAttack([0, 0]);
+    expect(board.allSunk()).toBe(true);
+  });
 });
