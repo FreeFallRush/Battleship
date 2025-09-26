@@ -10,3 +10,44 @@ body {
   text-align: center;
   background-color: #f1c2cc;
 }
+
+#boards {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 20px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 30px);
+  grid-template-rows: repeat(10, 30px);
+  gap: 2px;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  background-color: #87ceeb;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.cell.hit {
+  background-color: red;
+}
+
+.cell.miss {
+  background-color: white;
+}
+
+h1,
+h2 {
+  margin: 10px 0;
+}
+
+#status {
+  margin-top: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
