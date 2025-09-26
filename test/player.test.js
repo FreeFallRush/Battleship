@@ -29,6 +29,11 @@ describe("Player", () => {
     expect(opponent.board.missedAttacks).toEqual([[0, 0]]);
   });
 
+  test("computer initializes with full fleet", () => {
+    const computer = new Player("Computer", true);
+    expect(computer.board.ships.length).toBe(7);
+  });
+
   test("computer makes a random attack", () => {
     const computer = new Player("Computer", true);
     const board = new Gameboard();
