@@ -20,7 +20,7 @@ export function createBoard(
             shipObj.coords.some(([x, y]) => x === row && y == col)
           )
         ) {
-          cell.style.backgroundColor = "#444";
+          cell.classList.add("ship");
         }
       }
       container.appendChild(cell);

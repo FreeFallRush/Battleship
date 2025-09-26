@@ -33,8 +33,12 @@ body {
   cursor: pointer;
 }
 
+.cell.ship {
+  background-color: #444;
+}
+
 .cell.hit {
-  background-color: red;
+  background-color: red !important;
 }
 
 .cell.missed {
