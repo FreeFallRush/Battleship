@@ -1,7 +1,7 @@
-import Player from "./player";
-import createFleet from "./fleet";
-import placeFleet from "./setupFleet";
-import { createBoard, updateCell, setStatus } from "./dom";
+import Player from "./player.js";
+import createFleet from "./fleet.js";
+import placeFleet from "./setupFleet.js";
+import { createBoard, updateCell, setStatus } from "./dom.js";
 
 const human = new Player("Human");
 const computer = new Player("Computer", true);

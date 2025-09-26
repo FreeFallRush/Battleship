@@ -1,6 +1,6 @@
-import Gameboard from "./gameboard";
-import createFleet from "./fleet";
-import placeFleet from "./setupFleet";
+import Gameboard from "./gameboard.js";
+import createFleet from "./fleet.js";
+import placeFleet from "./setupFleet.js";
 
 export default class Player {
   constructor(name, isComputer = false) {
