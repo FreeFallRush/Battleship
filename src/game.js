@@ -24,8 +24,8 @@ function handlePlayerClick(coord, cell) {
   }
 
   const computerResult = computer.randomAttack(human.board);
-
   const [row, col] = computer.attacks.at(-1);
+
   const playerCells = document.getElementById("player-board").children;
   const index = row * 10 + col;
   updateCell(playerCells[index], computerResult);
