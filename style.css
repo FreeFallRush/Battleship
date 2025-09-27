@@ -55,3 +55,21 @@ h2 {
   font-size: 1.2em;
   font-weight: bold;
 }
+
+.ship-piece {
+  display: inline-flex;
+  gap: 2px;
+  margin: 5px;
+  cursor: grab;
+}
+
+.ship-cell {
+  width: 30px;
+  height: 30px;
+  background-color: #444;
+  border: 1px solid #000;
+}
+
+.ship-piece.dragging {
+  opacity: 0.5;
+}
