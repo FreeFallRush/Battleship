@@ -2,8 +2,15 @@ import Player from "./player.js";
 import setup from "./setup.js";
 import { createBoard, updateCell, setStatus } from "./dom.js";
 
-const human = new Player("Human");
-const computer = new Player("Computer", true);
+let human;
+let computer;
+
+function initGame() {
+  human = new Player("Human");
+  computer = new Player("Computer", true);
+
+  setup(human, startGame);
+}
 
 function renderBoards() {
   createBoard(human.board.ships, "player-board", false);
@@ -36,8 +43,6 @@ function handlePlayerClick(coord, cell) {
   }
 }
 
-setup(human, startGame);
-
 const instructionsBtn = document.getElementById("instructions-btn");
 const instructionsPopup = document.getElementById("instructions-popup");
 const closeInstructions = document.getElementById("close-instructions");
@@ -49,3 +54,18 @@ instructionsBtn.addEventListener("click", () => {
 closeInstructions.addEventListener("click", () => {
   instructionsPopup.classList.add("hidden");
 });
+
+const restartBtn = document.getElementById("restart-btn");
+restartBtn.addEventListener("click", () => {
+  restartGame();
+});
+
+function restartGame() {
+  setStatus("Game reset. Place your ships again!");
+  document.getElementById("player-board").innerHTML = "";
+  document.getElementById("computer-board").innerHTML = "";
+  document.getElementById("fleet-container").innerHTML = "";
+  initGame();
+}
+
+initGame();
