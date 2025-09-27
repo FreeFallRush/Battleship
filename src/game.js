@@ -1,17 +1,18 @@
 import Player from "./player.js";
-import createFleet from "./fleet.js";
-import placeFleet from "./setupFleet.js";
+import setup from "./setup.js";
 import { createBoard, updateCell, setStatus } from "./dom.js";
 
 const human = new Player("Human");
 const computer = new Player("Computer", true);
 
-const humanFleet = createFleet();
-placeFleet(human.board, humanFleet);
-
 function renderBoards() {
   createBoard(human.board.ships, "player-board", false);
   createBoard(computer.board.ships, "computer-board", true, handlePlayerClick);
+}
+
+function startGame() {
+  renderBoards();
+  setStatus("Game start! Click on computer board to attack!");
 }
 
 function handlePlayerClick(coord, cell) {
@@ -32,9 +33,7 @@ function handlePlayerClick(coord, cell) {
 
   if (human.board.allSunk()) {
     setStatus("Computer wins!");
-    return;
   }
 }
 
-renderBoards();
-setStatus("Game start! Click on computer board to attack!");
+setup(human, startGame);
