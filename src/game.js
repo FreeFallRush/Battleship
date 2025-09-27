@@ -4,10 +4,12 @@ import { createBoard, updateCell, setStatus } from "./dom.js";
 
 let human;
 let computer;
+let gameActive = true;
 
 function initGame() {
   human = new Player("Human");
   computer = new Player("Computer", true);
+  gameActive = true;
 
   setup(human, startGame);
 }
@@ -20,14 +22,18 @@ function renderBoards() {
 function startGame() {
   renderBoards();
   setStatus("Game start! Click on computer board to attack!");
+  updateProgress();
 }
 
 function handlePlayerClick(coord, cell) {
+  if (!gameActive) return;
+
   const result = human.attack(computer.board, coord);
   updateCell(cell, result);
+  updateProgress();
 
   if (computer.board.allSunk()) {
-    setStatus("You win!");
+    endGame("You win!");
     return;
   }
 
@@ -37,10 +43,29 @@ function handlePlayerClick(coord, cell) {
   const playerCells = document.getElementById("player-board").children;
   const index = row * 10 + col;
   updateCell(playerCells[index], computerResult);
+  updateProgress();
 
   if (human.board.allSunk()) {
-    setStatus("Computer wins!");
+    endGame("Computer wins!");
   }
+}
+
+function shipsRemaining(board) {
+  return board.ships.filter((s) => !s.ship.isSunk()).length;
+}
+
+function updateProgress() {
+  const humanRemaining = shipsRemaining(human.board);
+  const computerRemaining = shipsRemaining(computer.board);
+  document.getElementById(
+    "progress"
+  ).textContent = `Your ships left: ${humanRemaining} | Computer ships left: ${computerRemaining}`;
+}
+
+function endGame(message) {
+  gameActive = false;
+  document.getElementById("gameover-message").textContent = message;
+  document.getElementById("gameover-popup").classList.remove("hidden");
 }
 
 const instructionsBtn = document.getElementById("instructions-btn");
@@ -56,8 +81,18 @@ closeInstructions.addEventListener("click", () => {
 });
 
 const restartBtn = document.getElementById("restart-btn");
-restartBtn.addEventListener("click", () => {
+restartBtn.addEventListener("click", () => restartGame());
+
+const playAgainBtn = document.getElementById("play-again-btn");
+const closeGameover = document.getElementById("close-gameover");
+
+playAgainBtn.addEventListener("click", () => {
   restartGame();
+  document.getElementById("gameover-popup").classList.add("hidden");
+});
+
+closeGameover.addEventListener("click", () => {
+  document.getElementById("gameover-popup").classList.add("hidden");
 });
 
 function restartGame() {
@@ -65,6 +100,7 @@ function restartGame() {
   document.getElementById("player-board").innerHTML = "";
   document.getElementById("computer-board").innerHTML = "";
   document.getElementById("fleet-container").innerHTML = "";
+  document.getElementById("progress").textContent = "";
   initGame();
 }
 
