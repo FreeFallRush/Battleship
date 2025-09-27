@@ -56,20 +56,31 @@ h2 {
   font-weight: bold;
 }
 
+#fleet-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
 .ship-piece {
-  display: inline-flex;
+  display: flex;
   gap: 2px;
   margin: 5px;
   cursor: grab;
+}
+
+.ship-piece.vertical {
+  flex-direction: column;
+}
+
+.ship-piece.dragging {
+  opacity: 0.5;
 }
 
 .ship-cell {
   width: 30px;
   height: 30px;
   background-color: #444;
-  border: 1px solid #000;
-}
-
-.ship-piece.dragging {
-  opacity: 0.5;
+  border: 1px solid black;
+  margin: 1px;
 }
