@@ -146,3 +146,28 @@ h2 {
   cursor: pointer;
   font-size: 20px;
 }
+
+@media (max-width: 600px) {
+  #boards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    margin-top: 20px;
+  }
+
+  .board {
+    grid-template-columns: repeat(10, 30px);
+    grid-template-rows: repeat(10, 30px);
+  }
+
+  .cell,
+  .ship-cell {
+    width: 40px;
+    height: 40px;
+  }
+
+  #fleet-container {
+    flex-wrap: wrap;
+  }
+}
