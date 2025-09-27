@@ -45,6 +45,15 @@ export default function setup(human, onComplete) {
     const fleetHeader = fleetContainer.previousElementSibling;
     if (fleetHeader) fleetHeader.style.display = "none";
 
+    const boardsContainer = document.getElementById("boards");
+    const playerBoardContainer = document.getElementById(
+      "player-board-container"
+    );
+    const computerBoardContainer = document.getElementById(
+      "computer-board-container"
+    );
+    boardsContainer.insertBefore(computerBoardContainer, playerBoardContainer);
+
     fleet.forEach((ship) => {
       let placed = false;
       while (!placed) {
@@ -66,7 +75,6 @@ export default function setup(human, onComplete) {
     onComplete();
     return;
   }
-
   //DESKTOP drag & drop
   setStatus(
     "Drag your ships onto the board. Use Rotate button or 'R' key to rotate."
