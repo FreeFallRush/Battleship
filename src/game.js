@@ -53,10 +53,19 @@ function endGame(message) {
 
 function restartGame() {
   setStatus("Game reset. Place your ships again!");
+
   document.getElementById("player-board").innerHTML = "";
   document.getElementById("computer-board").innerHTML = "";
   document.getElementById("fleet-container").innerHTML = "";
   document.getElementById("progress").textContent = "";
+
+  const rotateBtn = document.getElementById("rotate-btn");
+  if (rotateBtn) rotateBtn.style.display = "inline-block";
+
+  const fleetHeader =
+    document.querySelector("#fleet-container").previousElementSibling;
+  if (fleetHeader) fleetHeader.style.display = "block";
+
   initGame();
 }
 

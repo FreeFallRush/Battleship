@@ -19,6 +19,8 @@ export default function setup(human, onComplete) {
       return btn;
     })();
 
+  rotateBtn.style.display = "inline-block"; // ensure it's visible at start
+
   function toggleOrientation() {
     orientation = orientation === "horizontal" ? "vertical" : "horizontal";
     document.querySelectorAll(".ship-piece").forEach((shipDiv) => {
@@ -38,7 +40,7 @@ export default function setup(human, onComplete) {
   });
   rotateBtn.addEventListener("click", toggleOrientation);
 
-  //MOBILE random placement
+  // MOBILE random placement
   if (mobile) {
     fleetContainer.style.display = "none";
     rotateBtn.style.display = "none";
@@ -75,7 +77,8 @@ export default function setup(human, onComplete) {
     onComplete();
     return;
   }
-  //DESKTOP drag & drop
+
+  // DESKTOP drag & drop
   setStatus(
     "Drag your ships onto the board. Use Rotate button or 'R' key to rotate."
   );
@@ -154,6 +157,8 @@ export default function setup(human, onComplete) {
       if (fleetContainer.children.length === 0) {
         onComplete();
         rotateBtn.style.display = "none";
+        const fleetHeader = fleetContainer.previousElementSibling;
+        if (fleetHeader) fleetHeader.style.display = "none";
       }
     } catch (err) {
       setStatus(err.message);
