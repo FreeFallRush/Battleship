@@ -37,3 +37,15 @@ function handlePlayerClick(coord, cell) {
 }
 
 setup(human, startGame);
+
+const instructionsBtn = document.getElementById("instructions-btn");
+const instructionsPopup = document.getElementById("instructions-popup");
+const closeInstructions = document.getElementById("close-instructions");
+
+instructionsBtn.addEventListener("click", () => {
+  instructionsPopup.classList.remove("hidden");
+});
+
+closeInstructions.addEventListener("click", () => {
+  instructionsPopup.classList.add("hidden");
+});
