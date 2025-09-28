@@ -9,6 +9,9 @@ export default class Player {
     this.board = new Gameboard();
     this.attacks = [];
 
+    this.lastHit = null;
+    this.targetQueue = [];
+
     if (isComputer) {
       const fleet = createFleet();
       placeFleet(this.board, fleet);
@@ -29,19 +32,61 @@ export default class Player {
     }
 
     this.attacks.push(coord);
-    return opponentBoard.receiveAttack(coord);
+    const result = opponentBoard.receiveAttack(coord);
+
+    if (this.isComputer && result === "hit") {
+      this.lastHit = coord;
+      this.enqueueNeighbors(coord, opponentBoard.size);
+    }
+
+    return result;
   }
 
-  randomAttack(opponentBoard, size = 10) {
+  enqueueNeighbors([row, col], size) {
+    const candidates = [
+      [row - 1, col],
+      [row + 1, col],
+      [row, col - 1],
+      [row, col + 1],
+    ];
+
+    for (let [r, c] of candidates) {
+      if (
+        r >= 0 &&
+        r < size &&
+        c >= 0 &&
+        c < size &&
+        !this.attacks.some(([x, y]) => x === r && y === c) &&
+        !this.targetQueue.some(([x, y]) => x === r && y === c)
+      ) {
+        this.targetQueue.push([r, c]);
+      }
+    }
+  }
+
+  smartAttack(opponentBoard, size = 10) {
     if (!this.isComputer) return;
 
     let coord;
+
+    while (this.targetQueue.length > 0) {
+      coord = this.targetQueue.shift();
+      if (!this.attacks.some(([x, y]) => x === coord[0] && y === coord[1])) {
+        return this.attack(opponentBoard, coord);
+      }
+    }
+
     do {
       coord = [
         Math.floor(Math.random() * size),
         Math.floor(Math.random() * size),
       ];
     } while (this.attacks.some(([x, y]) => x === coord[0] && y === coord[1]));
+
     return this.attack(opponentBoard, coord);
+  }
+
+  randomAttack(opponentBoard, size = 10) {
+    return this.smartAttack(opponentBoard, size);
   }
 }

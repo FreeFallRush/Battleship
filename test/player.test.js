@@ -51,4 +51,25 @@ describe("Player", () => {
       "Coordinate already attacked"
     );
   });
+
+  test("computer targets adjacent cells after a hit", () => {
+    const computer = new Player("Computer", true);
+    const board = new Gameboard();
+    const ship = new Ship(2);
+    board.placeShip(ship, [0, 0], "horizontal");
+
+    computer.attack(board, [0, 0]);
+    expect(ship.hits).toBe(1);
+
+    const result = computer.smartAttack(board);
+    expect(result === "hit" || result === "missed").toBe(true);
+
+    const lastAttack = computer.attacks.at(-1);
+    expect(
+      [
+        [0, 1],
+        [1, 0],
+      ].some(([r, c]) => r === lastAttack[0] && c === lastAttack[1])
+    ).toBe(true);
+  });
 });
