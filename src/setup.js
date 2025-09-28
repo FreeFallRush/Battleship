@@ -19,7 +19,7 @@ export default function setup(human, onComplete) {
       return btn;
     })();
 
-  rotateBtn.style.display = "inline-block"; // ensure it's visible at start
+  rotateBtn.style.display = "inline-block";
 
   function toggleOrientation() {
     orientation = orientation === "horizontal" ? "vertical" : "horizontal";
