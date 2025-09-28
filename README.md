@@ -1,5 +1,7 @@
 # Battleship Game
 
+**Project: Battleship:** - from The Odin Project Curriculum -> Path (https://www.theodinproject.com/lessons/node-path-javascript-battleship)
+
 **Live Demo:** [Play Battleship](https://freefallrush.github.io/Battleship/)
 
 ## Introduction
